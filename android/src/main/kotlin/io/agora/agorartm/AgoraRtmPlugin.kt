@@ -272,9 +272,12 @@ class AgoraRtmPlugin: MethodCallHandler {
         var peerId: String? = args?.get("peerId") as String
         var text = args.get("message") as String
         val message = client.createMessage()
+        val offline = args.get("offline") as Boolean
+        val sendMessageOptions = SendMessageOptions()
         message.text = text
         client.sendMessageToPeer(peerId,
                 message,
+	sendMessageOptions,
                 object : ResultCallback<Void> {
                   override fun onSuccess(resp: Void?) {
                     runMainThread {
